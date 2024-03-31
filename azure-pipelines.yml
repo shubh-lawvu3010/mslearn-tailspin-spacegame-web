@@ -16,7 +16,7 @@
   # - task: Npm@1
   #   displayName: 'Run npm install'
   #   inputs:
-  #     verbose: false
+  #     verbose: falseC 
   
   # - script: './node_modules/.bin/node-sass Tailspin.SpaceGame.Web/wwwroot --output Tailspin.SpaceGame.Web/wwwroot'
   #   displayName: 'Compile Sass assets'
@@ -40,3 +40,16 @@
       command: 'build'
       arguments: '--no-restore --configuration Release'
       projects: '**/*.csproj'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Publish the project - Release'
+    inputs:
+      command: 'publish'
+      publishWebProjects: false
+      projects: '**/*.csproj'
+      arguments: '--no-build --configuration Release --output $(Build.ArtifactStagingDirectory)/Release'
+      zipAfterPublish: true
+    
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: drop'
+    condition: succeeded()
