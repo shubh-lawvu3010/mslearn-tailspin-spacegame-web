@@ -40,7 +40,7 @@
     parameters:
       buildConfiguration: 'Debug'
 
-  - template : template/build.yml
+  - template : templates/build.yml
     parameters:
       buildConfiguration: 'Release'
     
